@@ -200,58 +200,60 @@ elif pagina == "📊 Resultados":
 
 # Dashboard Interactivo
 elif pagina == "🎯 Dashboard Interactivo":
-    st.title("🎯 Dashboard Interactivo de Monitoreo")
+    st.title("Dashboard Interactivo de Monitoreo")
     
-    st.markdown("### 📊 KPIs en Tiempo Real")
+    st.markdown("### KPIs en Tiempo Real")
     
     col1, col2, col3, col4 = st.columns(4)
     
-    col1.metric("⏱️ Tiempo Promedio Análisis", "2.1h", "-80%")
-    col2.metric("🎯 Precisión Detección Riesgos", "95%", "+25%")
-    col3.metric("🛡️ Incidentes Prevenidos", "12", "Últimos 30 días")
-    col4.metric("😊 Satisfacción del Analista", "8.7/10", "+40%")
+    col1.metric("Tiempo Promedio Análisis", "2.1h", "-80%")
+    col2.metric("Precisión Detección Riesgos", "95%", "+25%")
+    col3.metric("Incidentes Prevenidos", "12", "Últimos 30 días")
+    col4.metric("Satisfacción del Analista", "8.7/10", "+40%")
     
     st.markdown("---")
     
-    st.markdown("### 🎛️ Simulador de Escenarios")
+    st.markdown("### Simulador de Escenarios")
     
     st.markdown("Ajusta los parámetros para ver cómo impacta la implementación de IA:")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        automatizacion = st.slider("🤖 Nivel de Automatización (%)", 0, 100, 80)
-        inversion = st.slider("💰 Inversión en IA (USD)", 1000, 100000, 25000)
+        automatizacion = st.slider("Nivel de Automatización (%)", 0, 100, 80)
+        inversion = st.slider("Inversión en IA (USD)", 1000, 100000, 25000)
     
     with col2:
         tiempo_analisis = 8.2 * (1 - automatizacion/100)
         precision = 65 + (automatizacion * 0.3)
         roi = (inversion * 0.8) - inversion
         
-        st.metric("⏱️ Tiempo de Análisis (horas)", f"{tiempo_analisis:.1f}")
-        st.metric("🎯 Precisión (%)", f"{precision:.1f}")
-        st.metric("💰 ROI Estimado (USD)", f"${roi:,.0f}")
+        st.metric("Tiempo de Análisis (horas)", f"{tiempo_analisis:.1f}")
+        st.metric("Precisión (%)", f"{precision:.1f}")
+        st.metric("ROI Estimado (USD)", f"${roi:,.0f}")
     
     st.markdown("---")
     
-    st.markdown("### 📊 Análisis Comparativo en Tiempo Real")
+    st.markdown("### Mapa de Riesgos en Tiempo Real")
     
-    # Gráfico comparativo interactivo
-    etapa_seleccionada = st.selectbox("Selecciona una etapa para analizar:", 
-                                      ['Limpieza', 'Modelado', 'Reportes', 'Visualización'])
+    # Generar datos aleatorios para simulación
+    np.random.seed(42)
+    areas = ['Área A', 'Área B', 'Área C', 'Área D', 'Área E']
+    tipos_riesgo = ['Ergonómico', 'Químico', 'Físico', 'Psicosocial']
     
-    datos_etapa = eficiencia_df[eficiencia_df['Etapa'] == etapa_seleccionada]
+    riesgo_tiempo_real = pd.DataFrame({
+        'Área': np.random.choice(areas, 50),
+        'Tipo de Riesgo': np.random.choice(tipos_riesgo, 50),
+        'Nivel': np.random.randint(1, 11, 50),
+        'Timestamp': pd.date_range(start='2025-06-01', periods=50, freq='H')
+    })
     
-    col1, col2 = st.columns(2)
+    fig_tiempo_real = px.scatter(riesgo_tiempo_real, x='Timestamp', y='Nivel', 
+                                color='Tipo de Riesgo', size='Nivel',
+                                hover_data=['Área'],
+                                title='Monitoreo de Riesgos en Tiempo Real')
     
-    with col1:
-        st.metric(f"⏱️ {etapa_seleccionada} - Método Tradicional", 
-                 f"{datos_etapa['Tradicional'].values[0]} horas")
-    
-    with col2:
-        st.metric(f"🤖 {etapa_seleccionada} - Con IA", 
-                 f"{datos_etapa['Con IA'].values[0]} horas",
-                 f"-{datos_etapa['Reducción (%)'].values[0]}%")
+    st.plotly_chart(fig_tiempo_real, use_container_width=True)
 
 # Página de Conclusiones
 elif pagina == "📝 Conclusiones":
@@ -313,3 +315,4 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambó")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
