@@ -52,14 +52,14 @@ pagina = st.sidebar.selectbox(
 
 # Página de Inicio
 if pagina == "🏠 Inicio":
-    st.title("🚀 Revolución Inteligente del Análisis de Datos")
+    st.title(" Revolución Inteligente del Análisis de Datos")
     st.markdown("### 🤖 IA como Aliada Estratégica")
     
     col1, col2 = st.columns([2, 1])
     
     with col1:
         st.markdown("""
-        ### 📖 Contexto de la Investigación
+        ###  Contexto de la Investigación
         
         Esta investigación analiza cómo la implementación de tecnologías de automatización basadas en inteligencia artificial puede mejorar:
         
@@ -70,7 +70,7 @@ if pagina == "🏠 Inicio":
         Explora los resultados interactivos y descubre cómo la IA está transformando el análisis de datos en contextos empresariales reales.
         """)
         
-        st.markdown("### 🎯 Características Principales")
+        st.markdown("### Características Principales")
         st.markdown("""
         - **Reducción del 81.7%** en tiempo de limpieza de datos
         - **Aumento del 37%** en precisión predictiva
@@ -88,16 +88,16 @@ if pagina == "🏠 Inicio":
 
 # Página de Introducción
 elif pagina == "📋 Introducción":
-    st.title("📋 Introducción")
+    st.title(" Introducción")
     
     st.markdown("""
-    ### 🌍 Contexto de la Investigación
+    ###  Contexto de la Investigación
     
     Vivimos en una época donde los datos se han convertido en uno de los activos más valiosos para las organizaciones. Cada día se generan volúmenes enormes de información a partir de múltiples canales: redes sociales, plataformas digitales, dispositivos inteligentes, transacciones internas y externas, entre otros.
     
     Gestionar de forma eficiente esta gran cantidad de datos no solo se ha vuelto un reto técnico, sino también una condición indispensable para mantenerse competitivo.
     
-    ### ⚠️ Problema de Investigación
+    ###  Problema de Investigación
     
     A pesar del creciente acceso a herramientas tecnológicas, muchas organizaciones aún enfrentan limitaciones operativas al momento de gestionar el proceso analítico. Actividades como la limpieza de datos, la generación de reportes, el modelado estadístico y la visualización de resultados continúan siendo ejecutadas de manera manual o con baja integración tecnológica.
     
@@ -118,7 +118,7 @@ elif pagina == "🔬 Metodología":
     st.title("🔬 Metodología de Investigación")
     
     st.markdown("""
-    ### 📊 Enfoque de Investigación
+    ###  Enfoque de Investigación
     
     Se adopta un enfoque descriptivo con elementos exploratorios, cuyo objetivo principal es caracterizar y comprender a fondo los patrones encontrados en los datos recolectados.
     
@@ -168,10 +168,10 @@ elif pagina == "🔬 Metodología":
 elif pagina == "📊 Resultados":
     st.title("📊 Resultados de la Investigación")
     
-    st.markdown("### ⚡ Impacto en Eficiencia Operativa")
+    st.markdown("###  Impacto en Eficiencia Operativa")
     
     # Gráfico de barras comparativo
-    st.subheader("📈 Comparativo de Eficiencia por Etapa Analítica")
+    st.subheader(" Comparativo de Eficiencia por Etapa Analítica")
     st.bar_chart(eficiencia_df.set_index('Etapa'))
     
     # Tabla con reducciones
@@ -181,10 +181,10 @@ elif pagina == "📊 Resultados":
     st.markdown("### 📈 Evolución de la Precisión Predictiva")
     
     # Gráfico de líneas
-    st.subheader("📊 Evolución Temporal de Precisión")
+    st.subheader(" Evolución Temporal de Precisión")
     st.line_chart(evolucion_df.set_index('Mes'))
     
-    st.markdown("### 🔥 Mapa de Calor de Riesgos por Departamento")
+    st.markdown("###  Mapa de Calor de Riesgos por Departamento")
     
     # Mapa de calor
     st.subheader("🌡️ Niveles de Riesgo por Departamento")
@@ -202,10 +202,10 @@ elif pagina == "📊 Resultados":
 
 # Página de Conclusiones
 elif pagina == "📝 Conclusiones":
-    st.title("📝 Conclusiones y Recomendaciones")
+    st.title(" Conclusiones y Recomendaciones")
     
     st.markdown("""
-    ### 🎯 Conclusiones Principales
+    ### 🎯 Conclusiones 
     
     1. **🚀 Optimización del Ciclo Analítico**: La automatización mediante IA reduce significativamente los tiempos operativos (hasta 87.3% en visualización) y elimina tareas repetitivas.
     
@@ -258,6 +258,7 @@ elif pagina == "📝 Conclusiones":
 # Footer
 st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
-st.sidebar.markdown("👤 Gloria María Araujo Chambó")
+st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
