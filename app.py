@@ -357,21 +357,21 @@ with col4:
     st.metric("🚨 Alertas Altas", alertas_altas)
 
 # Página de Conclusiones
- if elif pagina == "📝 Conclusiones":
-    st.title(" Conclusiones y Recomendaciones")
+elif pagina == "📝 Conclusiones":
+    st.title("📝 Conclusiones y Recomendaciones")
     
     st.markdown("""
-    ### 🎯 Conclusiones 
+    ### 🎯 Conclusiones Principales
     
-    1. **🚀 Optimización del Ciclo Analítico**: La automatización mediante IA reduce significativamente los tiempos operativos (hasta 87.3% en visualización) y elimina tareas repetitivas.
+    1. **🚀 Optimización del Ciclo Analítico**: La automatización mediante IA reduce significativamente los tiempos operativos.
     
-    2. **📈 Mejora en Precisión**: La integración de algoritmos predictivos aumenta la precisión en un 37%, permitiendo detección temprana de patrones críticos.
+    2. **📈 Mejora en Precisión**: La integración de algoritmos predictivos aumenta la precisión en un 37%.
     
-    3. **🎯 Toma de Decisiones Basada en Datos**: La IA proporciona evidencias claras para priorizar riesgos y acciones preventivas.
+    3. **🎯 Toma de Decisiones Basada en Datos**: La IA proporciona evidencias claras para priorizar acciones.
     
-    4. **✅ Reducción de Errores Humanos**: La automatización fortalece la precisión en procesos como limpieza de datos y clasificación de riesgos.
+    4. **✅ Reducción de Errores Humanos**: La automatización fortalece la precisión en procesos.
     
-    5. **📊 Monitoreo en Tiempo Real**: Los dashboards interactivos permiten actualizaciones constantes y retroalimentación visual automatizada.
+    5. **📊 Monitoreo en Tiempo Real**: Los dashboards interactivos permiten actualizaciones constantes.
     """)
     
     st.markdown("---")
@@ -410,12 +410,12 @@ with col4:
     - Hernández Sampieri, R., et al. (2014). *Metodología de la investigación* (6.ª ed.). McGraw-Hill Education.
     - Sharma, S. (2022). *Automating Data Analysis with Artificial Intelligence: Techniques and Tools for Business Analytics*. Springer.
     """)
-
 # Footer
 st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
