@@ -56,22 +56,22 @@ pagina = st.sidebar.selectbox(
 if pagina == "🏠 Inicio":
     st.title(" Revolución Inteligente del Análisis de Datos")
     st.markdown("### 🤖 IA como Aliada Estratégica")
-    
+
     col1, col2 = st.columns([2, 1])
-    
+
     with col1:
         st.markdown("""
         ###  Contexto de la Investigación
-        
+
         Esta investigación analiza cómo la implementación de tecnologías de automatización basadas en inteligencia artificial puede mejorar:
-        
+
         - **La eficiencia** en el ciclo analítico
         - **La precisión** en los resultados  
         - **El impacto estratégico** del trabajo del analista de datos
-        
+
         Explora los resultados interactivos y descubre cómo la IA está transformando el análisis de datos en contextos empresariales reales.
         """)
-        
+
         st.markdown("### Características Principales")
         st.markdown("""
         - **Reducción del 81.7%** en tiempo de limpieza de datos
@@ -79,13 +79,13 @@ if pagina == "🏠 Inicio":
         - **Mejora del 40%** en satisfacción del analista
         - **Prevención de 12 incidentes** en el último mes
         """)
-    
-with col2:
-    st.image("https://via.placeholder.com/400x300?text=IA+para+Análisis+de+Datos", 
-             caption="IA transformando el análisis de datos", use_column_width=True)
-    st.metric("📉 Reducción Global de Tiempo", "82.5%", "⏱️")
-    st.metric("🎯 Precisión Promedio", "89%", "📈")
-    st.metric("😊 Satisfacción del Usuario", "8.7/10", "⭐")
+
+    with col2:
+        st.image("https://via.placeholder.com/400x300?text=IA+para+Análisis+de+Datos", 
+                 caption="IA transformando el análisis de datos", use_column_width=True)
+        st.metric("📉 Reducción Global de Tiempo", "82.5%", "⏱️")
+        st.metric("🎯 Precisión Promedio", "89%", "📈")
+        st.metric("😊 Satisfacción del Usuario", "8.7/10", "⭐")
 
 # Página de Introducción
 elif pagina == "📋 Introducción":
@@ -381,6 +381,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
