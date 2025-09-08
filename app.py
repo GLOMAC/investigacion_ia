@@ -242,27 +242,31 @@ elif pagina == "🎯 Dashboard Interactivo":
     
     st.markdown("---")
     
-    # Mapa de Riesgos en Tiempo Real
+    # Mapa de Riesgos en Tiempo Real - Versión Corregida
     st.markdown("### 🗺️ Mapa de Riesgos en Tiempo Real")
     
-    # Generar datos de riesgos
-    @st.cache_data(ttl=60)  # Actualiza cada 60 segundos
+    # Generar datos de riesgos de forma simple
+    @st.cache_data
     def generar_datos_riesgos():
-        np.random.seed(int(datetime.now().timestamp()))
+        # Fijar semilla para reproducibilidad
+        np.random.seed(42)
+        
+        # Definir categorías
         areas = ['Área A', 'Área B', 'Área C', 'Área D', 'Área E']
         tipos_riesgo = ['Ergonómico', 'Químico', 'Físico', 'Psicosocial']
         
-        # Generar datos de las últimas 24 horas
-        horas = pd.date_range(start=datetime.now() - pd.Timedelta(hours=24), 
-                             end=datetime.now(), freq='H')
+        # Generar timestamps de las últimas 24 horas
+        ahora = pd.Timestamp.now()
+        timestamps = [ahora - pd.Timedelta(hours=i) for i in range(24, 0, -1)]
         
+        # Crear datos
         datos = []
-        for hora in horas:
+        for timestamp in timestamps:
             for area in areas:
                 tipo = np.random.choice(tipos_riesgo)
                 nivel = np.random.randint(1, 11)
                 datos.append({
-                    'Timestamp': hora,
+                    'Timestamp': timestamp,
                     'Área': area,
                     'Tipo de Riesgo': tipo,
                     'Nivel': nivel
@@ -393,7 +397,6 @@ elif pagina == "🎯 Dashboard Interactivo":
         alertas_altas = len(df_filtrado[df_filtrado['Nivel'] >= 8])
         st.metric("🚨 Alertas Altas", alertas_altas)
 
-
 # Página de Conclusiones
 elif pagina == "📝 Conclusiones":
     st.title(" Conclusiones y Recomendaciones")
@@ -454,6 +457,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
