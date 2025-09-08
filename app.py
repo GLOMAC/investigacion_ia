@@ -81,8 +81,9 @@ if pagina == "🏠 Inicio":
         """)
     
     with col2:
-        st.image("https://via.placeholder.com/400x300?text=IA+para+Análisis+de+Datos", 
-                 caption="IA transformando el análisis de datos", use_column_width=True)
+       st.image("https://via.placeholder.com/400x300?text=IA+para+Análisis+de+Datos", 
+         caption="IA transformando el análisis de datos", container_width=True)
+
         
         st.metric("📉 Reducción Global de Tiempo", "82.5%", "⏱️")
         st.metric("🎯 Precisión Promedio", "89%", "📈")
@@ -382,6 +383,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
