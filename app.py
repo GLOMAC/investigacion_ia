@@ -319,7 +319,7 @@ elif pagina == "🎯 Dashboard Interactivo":
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader("📊 Riesgos por Tipo")
+        st.subheader(" Riesgos por Tipo")
         tipo_counts = df_filtrado['Tipo de Riesgo'].value_counts()
         fig_tipo = px.pie(values=tipo_counts.values, 
                           names=tipo_counts.index,
@@ -336,25 +336,25 @@ elif pagina == "🎯 Dashboard Interactivo":
         st.plotly_chart(fig_area, use_container_width=True)
     
     # Resumen estadístico
-    st.markdown("### 📋 Resumen Estadístico")
+st.markdown("### 📋 Resumen Estadístico")
     
-    col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4 = st.columns(4)
     
-    with col1:
-        total_registros = len(df_filtrado)
-        st.metric("📊 Total Registros", total_registros)
+with col1:
+    total_registros = len(riesgo_tiempo_real)
+    st.metric("📊 Total Registros", total_registros)
     
-    with col2:
-        promedio_riesgo = df_filtrado['Nivel'].mean()
-        st.metric("⚠️ Nivel Promedio", f"{promedio_riesgo:.1f}")
+with col2:
+    promedio_riesgo = riesgo_tiempo_real['Nivel'].mean()
+    st.metric("⚠️ Nivel Promedio", f"{promedio_riesgo:.1f}")
     
-    with col3:
-        max_riesgo = df_filtrado['Nivel'].max()
-        st.metric("🔴 Riesgo Máximo", max_riesgo)
+with col3:
+    max_riesgo = riesgo_tiempo_real['Nivel'].max()
+    st.metric("🔴 Riesgo Máximo", max_riesgo)
     
-    with col4:
-        alertas_altas = len(df_filtrado[df_filtrado['Nivel'] >= 8])
-        st.metric("🚨 Alertas Altas", alertas_altas)
+with col4:
+    alertas_altas = len(riesgo_tiempo_real[riesgo_tiempo_real['Nivel'] >= 8])
+    st.metric("🚨 Alertas Altas", alertas_altas)
 
 # Página de Conclusiones
 elif pagina == "📝 Conclusiones":
@@ -416,6 +416,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
