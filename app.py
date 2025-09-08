@@ -382,6 +382,8 @@ st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
 
+st.write("✅ La app se ejecutó correctamente.")
+
 
 
 
