@@ -300,10 +300,6 @@ elif pagina == "🎯 Dashboard Interactivo":
     df_filtrado = df_filtrado[df_filtrado['Nivel'] >= nivel_min]
     
    
-        
-        st.dataframe(alertas_criticas, use_container_width=True)
-    else:
-        st.success("✅ No hay alertas críticas en este momento")
     
     # Botón de actualización
     st.markdown("---")
@@ -420,6 +416,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
