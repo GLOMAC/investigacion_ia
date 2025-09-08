@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
 
 # Configuración de la página
 st.set_page_config(
@@ -458,6 +457,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
