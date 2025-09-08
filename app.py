@@ -166,13 +166,13 @@ elif pagina == "🔬 Metodología":
 
 # Página de Resultados
 elif pagina == "📊 Resultados":
-    st.title("🕵️‍♀️Resultados de la Investigación")
+    st.title(" Resultados de la Investigación")
     
     st.markdown("###  Impacto en Eficiencia Operativa")
     
     # Gráfico de barras comparativo
     st.subheader(" Comparativo de Eficiencia por Etapa Analítica")
-    st.bar_chart( 🖇 eficiencia_df.set_index('Etapa'))
+    st.bar_chart( eficiencia_df.set_index('Etapa'))
     
     # Tabla con reducciones
     eficiencia_df['Reducción (%)'] = ((eficiencia_df['Tradicional'] - eficiencia_df['Con IA']) / eficiencia_df['Tradicional'] * 100).round(1)
@@ -181,7 +181,7 @@ elif pagina == "📊 Resultados":
     st.markdown("###  Evolución de la Precisión Predictiva")
     
     # Gráfico de líneas
-    st.subheader(" 🖇 Evolución Temporal de Precisión")
+    st.subheader(" Evolución Temporal de Precisión")
     st.line_chart(evolucion_df.set_index('Mes'))
     
     st.markdown("###  Mapa de Calor de Riesgos por Departamento")
@@ -260,6 +260,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
