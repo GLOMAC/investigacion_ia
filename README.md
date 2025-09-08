@@ -1,3 +1,43 @@
-La transformación digital ha convertido al análisis de datos en un componente esencial para la toma de decisiones estratégicas dentro de las organizaciones. En un entorno donde los datos crecen a una velocidad y volumen abrumadores, el papel del analista ha evolucionado significativamente, ya que no se limita a procesar información, sino que se espera que interprete, prediga y aporte valor a los procesos del negocio. A pesar de ello, muchas de las tareas asociadas al ciclo analítico como la preparación, depuración y visualización de datos  siguen realizándose de forma manual, lo que representa una barrera para alcanzar mayores niveles de eficiencia y aprovechamiento del talento técnico.
-Ante este panorama, la inteligencia artificial (IA) se presenta como un aliado estratégico para automatizar y optimizar tareas clave dentro del análisis de datos. Su integración permite acelerar procesos, minimizar errores humanos y maximizar la productividad, a la vez que libera a los analistas de labores repetitivas. Esto les permite enfocarse en actividades de mayor impacto, como el diseño de modelos predictivos, la interpretación avanzada de resultados y la formulación de recomendaciones estratégicas basadas en evidencia.
-Esta investigación nace en el marco del semillero en inteligencia artificial, con el propósito de analizar cómo la automatización inteligente puede aplicarse de forma efectiva en el entorno laboral real del analista de datos. Se busca identificar herramientas y metodologías que impulsen esta transformación, así como evaluar sus beneficios, limitaciones y desafíos. Con ello, se pretende contribuir a la consolidación de un perfil profesional más estratégico, preparado para liderar procesos analíticos en la era de los datos.
+# 🧠 Revolución Inteligente del Análisis de Datos
+
+Bienvenido a una experiencia transformadora donde la inteligencia artificial no solo analiza datos, sino que **redefine el propósito del analista**. Esta aplicación, construida con Streamlit, es una herramienta interactiva que convierte métricas, visualizaciones y contexto técnico en un ritual de descubrimiento estratégico.
+
+---
+
+## 🔍 Contexto de la Investigación
+
+Este proyecto nace de una pregunta esencial:  
+**¿Cómo puede la IA convertirse en aliada del analista para mejorar eficiencia, precisión y toma de decisiones?**
+
+La app explora:
+
+- 📊 Reducción del tiempo en procesos analíticos  
+- 🎯 Mejora en la precisión de resultados  
+- ⭐ Aumento en la satisfacción del usuario final  
+- 🧪 Prevención de incidentes mediante visualización de riesgos
+
+---
+
+## 🚀 ¿Qué encontrarás en esta app?
+
+- **Dashboard interactivo** con métricas clave
+- **Visualización de riesgos en tiempo real** usando Plotly
+- **Narrativa simbólica** que acompaña cada sección
+- **Diseño ceremonial** para guiar al usuario en su recorrido técnico
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- `Streamlit` para la interfaz interactiva
+- `Pandas` y `NumPy` para manipulación de datos
+- `Plotly Express` para visualizaciones dinámicas
+- `Python` como lenguaje base
+
+---
+
+## 📦 Instalación
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
