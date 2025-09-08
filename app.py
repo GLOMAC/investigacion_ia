@@ -357,7 +357,7 @@ with col4:
     st.metric("🚨 Alertas Altas", alertas_altas)
 
 # Página de Conclusiones
-elif pagina == "📝 Conclusiones":
+ if elif pagina == "📝 Conclusiones":
     st.title(" Conclusiones y Recomendaciones")
     
     st.markdown("""
@@ -416,6 +416,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
