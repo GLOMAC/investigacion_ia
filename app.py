@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+import random
 
 # Configuración de la página
 st.set_page_config(
@@ -38,6 +42,31 @@ def load_data():
     }
     
     return pd.DataFrame(eficiencia_data), pd.DataFrame(evolucion_data), pd.DataFrame(riesgo_data)
+
+# Generar datos de riesgo en tiempo real
+@st.cache_data(ttl=60)  # Se actualiza cada 60 segundos
+def generate_real_time_risk_data():
+    areas = ['Área A', 'Área B', 'Área C', 'Área D', 'Área E']
+    tipos_riesgo = ['Ergonómico', 'Químico', 'Físico', 'Psicosocial']
+    
+    # Generar datos de las últimas 24 horas
+    ahora = datetime.now()
+    timestamps = [ahora - timedelta(hours=x) for x in range(24, 0, -1)]
+    
+    datos = []
+    for timestamp in timestamps:
+        for area in areas:
+            for tipo in tipos_riesgo:
+                # Simular nivel de riesgo aleatorio entre 1 y 10
+                nivel = random.randint(1, 10)
+                datos.append({
+                    'Timestamp': timestamp,
+                    'Área': area,
+                    'Tipo de Riesgo': tipo,
+                    'Nivel': nivel
+                })
+    
+    return pd.DataFrame(datos)
 
 # Cargar datos
 eficiencia_df, evolucion_df, riesgo_df = load_data()
@@ -186,8 +215,27 @@ elif pagina == "📊 Resultados":
     
     st.markdown("### 🔥 Mapa de Calor de Riesgos por Departamento")
     
-    # Mapa de calor
-    st.subheader("🌡️ Niveles de Riesgo por Departamento")
+    # Crear mapa de calor visual
+    st.subheader("🌡️ Visualización de Riesgos por Departamento")
+    
+    # Preparar datos para el mapa de calor
+    heatmap_data = riesgo_df.set_index('Departamento')
+    
+    # Crear figura
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Crear mapa de calor
+    sns.heatmap(heatmap_data, annot=True, cmap='Reds', fmt='g', 
+                cbar_kws={'label': 'Nivel de Riesgo (1-10)'}, ax=ax)
+    
+    # Configurar título
+    ax.set_title('Mapa de Calor de Riesgos por Departamento', fontsize=14, weight='bold')
+    
+    # Mostrar en Streamlit
+    st.pyplot(fig)
+    
+    # Mostrar tabla también
+    st.subheader("📋 Datos Detallados de Riesgos")
     st.dataframe(riesgo_df.set_index('Departamento'), use_container_width=True)
     
     # Resaltar valores altos
@@ -200,60 +248,127 @@ elif pagina == "📊 Resultados":
 
 # Dashboard Interactivo
 elif pagina == "🎯 Dashboard Interactivo":
-    st.title("Dashboard Interactivo de Monitoreo")
+    st.title("🎯 Dashboard Interactivo de Monitoreo")
     
-    st.markdown("### KPIs en Tiempo Real")
+    st.markdown("### 📊 KPIs en Tiempo Real")
     
     col1, col2, col3, col4 = st.columns(4)
     
-    col1.metric("Tiempo Promedio Análisis", "2.1h", "-80%")
-    col2.metric("Precisión Detección Riesgos", "95%", "+25%")
-    col3.metric("Incidentes Prevenidos", "12", "Últimos 30 días")
-    col4.metric("Satisfacción del Analista", "8.7/10", "+40%")
+    col1.metric("⏱️ Tiempo Promedio Análisis", "2.1h", "-80%")
+    col2.metric("🎯 Precisión Detección Riesgos", "95%", "+25%")
+    col3.metric("🛡️ Incidentes Prevenidos", "12", "Últimos 30 días")
+    col4.metric("😊 Satisfacción del Analista", "8.7/10", "+40%")
     
     st.markdown("---")
     
-    st.markdown("### Simulador de Escenarios")
+    st.markdown("### 🎛️ Simulador de Escenarios")
     
     st.markdown("Ajusta los parámetros para ver cómo impacta la implementación de IA:")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        automatizacion = st.slider("Nivel de Automatización (%)", 0, 100, 80)
-        inversion = st.slider("Inversión en IA (USD)", 1000, 100000, 25000)
+        automatizacion = st.slider("🤖 Nivel de Automatización (%)", 0, 100, 80)
+        inversion = st.slider("💰 Inversión en IA (USD)", 1000, 100000, 25000)
     
     with col2:
         tiempo_analisis = 8.2 * (1 - automatizacion/100)
         precision = 65 + (automatizacion * 0.3)
         roi = (inversion * 0.8) - inversion
         
-        st.metric("Tiempo de Análisis (horas)", f"{tiempo_analisis:.1f}")
-        st.metric("Precisión (%)", f"{precision:.1f}")
-        st.metric("ROI Estimado (USD)", f"${roi:,.0f}")
+        st.metric("⏱️ Tiempo de Análisis (horas)", f"{tiempo_analisis:.1f}")
+        st.metric("🎯 Precisión (%)", f"{precision:.1f}")
+        st.metric("💰 ROI Estimado (USD)", f"${roi:,.0f}")
     
     st.markdown("---")
     
-    st.markdown("### Mapa de Riesgos en Tiempo Real")
+    st.markdown("### 🗺️ Mapa de Riesgos en Tiempo Real")
     
-    # Generar datos aleatorios para simulación
-    np.random.seed(42)
-    areas = ['Área A', 'Área B', 'Área C', 'Área D', 'Área E']
-    tipos_riesgo = ['Ergonómico', 'Químico', 'Físico', 'Psicosocial']
+    # Generar datos en tiempo real
+    riesgo_tiempo_real = generate_real_time_risk_data()
     
-    riesgo_tiempo_real = pd.DataFrame({
-        'Área': np.random.choice(areas, 50),
-        'Tipo de Riesgo': np.random.choice(tipos_riesgo, 50),
-        'Nivel': np.random.randint(1, 11, 50),
-        'Timestamp': pd.date_range(start='2025-06-01', periods=50, freq='H')
-    })
+    # Filtros para el mapa de riesgos
+    col1, col2 = st.columns(2)
     
-    fig_tiempo_real = px.scatter(riesgo_tiempo_real, x='Timestamp', y='Nivel', 
-                                color='Tipo de Riesgo', size='Nivel',
-                                hover_data=['Área'],
-                                title='Monitoreo de Riesgos en Tiempo Real')
+    with col1:
+        tipo_riesgo_filtro = st.selectbox("Filtrar por tipo de riesgo:", 
+                                          ['Todos'] + list(riesgo_tiempo_real['Tipo de Riesgo'].unique()))
     
-    st.plotly_chart(fig_tiempo_real, use_container_width=True)
+    with col2:
+        area_filtro = st.selectbox("Filtrar por área:", 
+                                   ['Todas'] + list(riesgo_tiempo_real['Área'].unique()))
+    
+    # Aplicar filtros
+    datos_filtrados = riesgo_tiempo_real.copy()
+    if tipo_riesgo_filtro != 'Todos':
+        datos_filtrados = datos_filtrados[datos_filtrados['Tipo de Riesgo'] == tipo_riesgo_filtro]
+    if area_filtro != 'Todas':
+        datos_filtrados = datos_filtrados[datos_filtrados['Área'] == area_filtro]
+    
+    # Mostrar últimos datos
+    st.subheader("📊 Últimas 24 horas - Niveles de Riesgo")
+    
+    # Crear gráfico de dispersión para mostrar riesgos en tiempo real
+    fig, ax = plt.subplots(figsize=(12, 6))
+    
+    # Preparar datos para el gráfico
+    scatter_data = datos_filtrados.copy()
+    scatter_data['Hora'] = scatter_data['Timestamp'].dt.hour
+    
+    # Crear scatter plot
+    scatter = ax.scatter(scatter_data['Hora'], scatter_data['Nivel'], 
+                        c=scatter_data['Nivel'], cmap='Reds', s=100, alpha=0.7)
+    
+    # Configurar gráfico
+    ax.set_xlabel('Hora del Día')
+    ax.set_ylabel('Nivel de Riesgo (1-10)')
+    ax.set_title('Niveles de Riesgo en Tiempo Real - Últimas 24 Horas')
+    ax.set_ylim(0, 11)
+    ax.set_xlim(-1, 24)
+    
+    # Añadir barra de color
+    cbar = plt.colorbar(scatter, ax=ax)
+    cbar.set_label('Nivel de Riesgo')
+    
+    # Mostrar en Streamlit
+    st.pyplot(fig)
+    
+    # Mostrar tabla con datos más recientes
+    st.subheader("📋 Datos Recientes de Riesgos")
+    
+    # Obtener los 10 registros más recientes
+    datos_recientes = datos_filtrados.sort_values('Timestamp', ascending=False).head(10)
+    
+    # Formatear timestamp para mejor visualización
+    datos_recientes['Timestamp'] = datos_recientes['Timestamp'].dt.strftime('%Y-%m-%d %H:%M:%S')
+    
+    st.dataframe(datos_recientes, use_container_width=True)
+    
+    # Añadir botón para actualizar datos
+    if st.button("🔄 Actualizar Datos en Tiempo Real"):
+        st.cache_data.clear()
+        st.experimental_rerun()
+    
+    st.markdown("---")
+    
+    st.markdown("### 📊 Análisis Comparativo en Tiempo Real")
+    
+    # Gráfico comparativo interactivo
+    etapa_seleccionada = st.selectbox("Selecciona una etapa para analizar:", 
+                                      ['Limpieza', 'Modelado', 'Reportes', 'Visualización'])
+    
+    datos_etapa = eficiencia_df[eficiencia_df['Etapa'] == etapa_seleccionada]
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.metric(f"⏱️ {etapa_seleccionada} - Método Tradicional", 
+                 f"{datos_etapa['Tradicional'].values[0]} horas")
+    
+    with col2:
+        st.metric(f"🤖 {etapa_seleccionada} - Con IA", 
+                 f"{datos_etapa['Con IA'].values[0]} horas",
+                 f"-{datos_etapa['Reducción (%)'].values[0]}%")
 
 # Página de Conclusiones
 elif pagina == "📝 Conclusiones":
@@ -315,4 +430,3 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambó")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
-
