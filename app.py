@@ -299,26 +299,7 @@ elif pagina == "🎯 Dashboard Interactivo":
         df_filtrado = df_filtrado[df_filtrado['Área'] == area_filtro]
     df_filtrado = df_filtrado[df_filtrado['Nivel'] >= nivel_min]
     
-    # Gráfico de dispersión interactivo
-st.subheader("📊 Distribución de Riesgos en Tiempo Real")
-fig = px.scatter(riesgo_tiempo_real, x='Timestamp', y='Nivel', color='Tipo de Riesgo', title='Monitoreo de Riesgos en Tiempo Real')
-st.plotly_chart(fig, use_container_width=True)
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Tabla de alertas críticas
-    st.subheader("🚨 Alertas Críticas Recientes")
-    
-    alertas_criticas = df_filtrado[df_filtrado['Nivel'] >= 8].sort_values('Timestamp', ascending=False).head(10)
-    
-    if not alertas_criticas.empty:
-        alertas_criticas['Timestamp'] = alertas_criticas['Timestamp'].dt.strftime('%d/%m/%Y %H:%M')
-        alertas_criticas = alertas_criticas.rename(columns={
-            'Timestamp': 'Fecha/Hora',
-            'Área': 'Área',
-            'Tipo de Riesgo': 'Tipo',
-            'Nivel': 'Nivel'
-        })
+   
         
         st.dataframe(alertas_criticas, use_container_width=True)
     else:
@@ -439,6 +420,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
