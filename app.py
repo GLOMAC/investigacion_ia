@@ -300,27 +300,9 @@ elif pagina == "🎯 Dashboard Interactivo":
     df_filtrado = df_filtrado[df_filtrado['Nivel'] >= nivel_min]
     
     # Gráfico de dispersión interactivo
-    st.subheader("📊 Distribución de Riesgos en Tiempo Real")
-    
-    fig = px.scatter(df_filtrado, 
-                     x='Timestamp', 
-                     y='Nivel',
-                     color='Tipo de Riesgo',
-                     size='Nivel',
-                     hover_data=['Área'],
-                     title='Evolución de Riesgos por Tipo',
-                     color_discrete_map={
-                         'Ergonómico': '#FF6B6B',
-                         'Químico': '#4ECDC4',
-                         'Físico': '#45B7D1',
-                         'Psicosocial': '#96CEB4'
-                     })
-    
-    fig.update_layout(
-        xaxis_title="Fecha y Hora",
-        yaxis_title="Nivel de Riesgo (1-10)",
-        height=500
-    )
+st.subheader("📊 Distribución de Riesgos en Tiempo Real")
+fig = px.scatter(riesgo_tiempo_real, x='Timestamp', y='Nivel', color='Tipo de Riesgo', title='Monitoreo de Riesgos en Tiempo Real')
+st.plotly_chart(fig, use_container_width=True)
     
     st.plotly_chart(fig, use_container_width=True)
     
@@ -457,6 +439,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
