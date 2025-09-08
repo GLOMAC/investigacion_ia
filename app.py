@@ -82,7 +82,8 @@ if pagina == "🏠 Inicio":
     
     with col2:
        st.image("https://via.placeholder.com/400x300?text=IA+para+Análisis+de+Datos", 
-         caption="IA transformando el análisis de datos", container_width=True)
+         caption="IA transformando el análisis de datos", use_column_width=True)
+
 
         
         st.metric("📉 Reducción Global de Tiempo", "82.5%", "⏱️")
@@ -165,7 +166,7 @@ elif pagina == "🔬 Metodología":
     }
     
     tech_df = pd.DataFrame(tech_data)
-    st.dataframe(tech_df, use_container_width=True)
+    st.dataframe(tech_df, container_width=True)
 
 # Página de Resultados
 elif pagina == "📊 Resultados":
@@ -179,7 +180,7 @@ elif pagina == "📊 Resultados":
     
     # Tabla con reducciones
     eficiencia_df['Reducción (%)'] = ((eficiencia_df['Tradicional'] - eficiencia_df['Con IA']) / eficiencia_df['Tradicional'] * 100).round(1)
-    st.dataframe(eficiencia_df, use_container_width=True)
+    st.dataframe(eficiencia_df, container_width=True)
     
     st.markdown("###  Evolución de la Precisión Predictiva")
     
@@ -191,7 +192,7 @@ elif pagina == "📊 Resultados":
     
     # Mapa de calor
     st.subheader("🌡️ Niveles de Riesgo por Departamento")
-    st.dataframe(riesgo_df.set_index('Departamento'), use_container_width=True)
+    st.dataframe(riesgo_df.set_index('Departamento'), container_width=True)
     
     # Resaltar valores altos
     st.markdown("""
@@ -280,7 +281,7 @@ elif pagina == "🎯 Dashboard Interactivo":
             'Nivel': 'Nivel'
         })
         
-        st.dataframe(alertas_criticas, use_container_width=True)
+        st.dataframe(alertas_criticas, container_width=True)
     else:
         st.success("✅ No hay alertas críticas en este momento")
     
@@ -306,7 +307,7 @@ elif pagina == "🎯 Dashboard Interactivo":
         fig_tipo = px.pie(values=tipo_counts.values, 
                           names=tipo_counts.index,
                           title="Distribución por Tipo de Riesgo")
-        st.plotly_chart(fig_tipo, use_container_width=True)
+        st.plotly_chart(fig_tipo, container_width=True)
     
     with col2:
         st.subheader("📍 Riesgos por Área")
@@ -315,7 +316,7 @@ elif pagina == "🎯 Dashboard Interactivo":
                           y=area_counts.values,
                           title="Incidencias por Área",
                           labels={'x': 'Área', 'y': 'Cantidad'})
-        st.plotly_chart(fig_area, use_container_width=True)
+        st.plotly_chart(fig_area, container_width=True)
     
     # Resumen estadístico - VERSIÓN CORREGIDA
     st.markdown("### 📋 Resumen Estadístico")
@@ -383,6 +384,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
