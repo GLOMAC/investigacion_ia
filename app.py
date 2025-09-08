@@ -335,12 +335,6 @@ elif pagina == "🎯 Dashboard Interactivo":
         alertas_altas = len(riesgo_tiempo_real[riesgo_tiempo_real['Nivel'] >= 8])
         st.metric("🚨 Alertas Altas", alertas_altas)
 
-# Footer - FUERA DE CUALQUIER BLOQUE
-st.sidebar.markdown("---")
-st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
-st.sidebar.markdown("👤 Gloria María Araujo Chambó")
-st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
-
 # Ahora sí puede empezar el siguiente bloque
 elif pagina == "📝 Conclusiones":
     st.title("📝 Conclusiones y Recomendaciones")
@@ -372,21 +366,6 @@ elif pagina == "📝 Conclusiones":
         "🏢 Fomentar una cultura organizacional basada en datos"
     ]
     
-    for i, rec in enumerate(recomendaciones, 1):
-        st.markdown(f"**{i}.** {rec}")
-    
-    st.markdown("---")
-    
-    st.markdown("### 🚀 Próximos Pasos")
-    
-    st.markdown("""
-    - **📋 Fase 1**: Implementación piloto en departamentos seleccionados
-    - **📈 Fase 2**: Escalado a toda la organización
-    - **🔗 Fase 3**: Integración con sistemas empresariales existentes
-    - **📊 Fase 4**: Monitoreo continuo y mejora del modelo
-    """)
-    
-    st.markdown("---")
     
     st.markdown("### 📚 Referencias")
     
@@ -395,11 +374,13 @@ elif pagina == "📝 Conclusiones":
     - Hernández Sampieri, R., et al. (2014). *Metodología de la investigación* (6.ª ed.). McGraw-Hill Education.
     - Sharma, S. (2022). *Automating Data Analysis with Artificial Intelligence: Techniques and Tools for Business Analytics*. Springer.
     """)
+    
 # Footer
 st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
