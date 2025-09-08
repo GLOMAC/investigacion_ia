@@ -242,64 +242,44 @@ elif pagina == "🎯 Dashboard Interactivo":
     
     st.markdown("---")
     
-    # Mapa de Riesgos en Tiempo Real - Versión Corregida
+    # Mapa de Riesgos en Tiempo Real
     st.markdown("### 🗺️ Mapa de Riesgos en Tiempo Real")
     
-    # Generar datos de riesgos de forma simple
-    @st.cache_data
-    def generar_datos_riesgos():
-        # Fijar semilla para reproducibilidad
-        np.random.seed(42)
+    # Generar datos aleatorios para simulación
+    np.random.seed(42)
+    areas = ['Área A', 'Área B', 'Área C', 'Área D', 'Área E']
+    tipos_riesgo = ['Ergonómico', 'Químico', 'Físico', 'Psicosocial']
+    
+    riesgo_tiempo_real = pd.DataFrame({
+        'Área': np.random.choice(areas, 50),
+        'Tipo de Riesgo': np.random.choice(tipos_riesgo, 50),
+        'Nivel': np.random.randint(1, 11, 50),
+        'Timestamp': pd.date_range(start='2025-06-01', periods=50, freq='H')
+    })
+    
+    # Gráfico de dispersión interactivo
+    st.subheader("📊 Distribución de Riesgos en Tiempo Real")
+    fig = px.scatter(riesgo_tiempo_real, x='Timestamp', y='Nivel', 
+                    color='Tipo de Riesgo', title='Monitoreo de Riesgos en Tiempo Real')
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Tabla de alertas críticas
+    st.subheader("🚨 Alertas Críticas Recientes")
+    
+    alertas_criticas = riesgo_tiempo_real[riesgo_tiempo_real['Nivel'] >= 8].sort_values('Timestamp', ascending=False).head(10)
+    
+    if not alertas_criticas.empty:
+        alertas_criticas['Timestamp'] = alertas_criticas['Timestamp'].dt.strftime('%d/%m/%Y %H:%M')
+        alertas_criticas = alertas_criticas.rename(columns={
+            'Timestamp': 'Fecha/Hora',
+            'Área': 'Área',
+            'Tipo de Riesgo': 'Tipo',
+            'Nivel': 'Nivel'
+        })
         
-        # Definir categorías
-        areas = ['Área A', 'Área B', 'Área C', 'Área D', 'Área E']
-        tipos_riesgo = ['Ergonómico', 'Químico', 'Físico', 'Psicosocial']
-        
-        # Generar timestamps de las últimas 24 horas
-        ahora = pd.Timestamp.now()
-        timestamps = [ahora - pd.Timedelta(hours=i) for i in range(24, 0, -1)]
-        
-        # Crear datos
-        datos = []
-        for timestamp in timestamps:
-            for area in areas:
-                tipo = np.random.choice(tipos_riesgo)
-                nivel = np.random.randint(1, 11)
-                datos.append({
-                    'Timestamp': timestamp,
-                    'Área': area,
-                    'Tipo de Riesgo': tipo,
-                    'Nivel': nivel
-                })
-        
-        return pd.DataFrame(datos)
-    
-    # Cargar datos de riesgos
-    df_riesgos = generar_datos_riesgos()
-    
-    # Filtros interactivos
-    col1, col2, col3 = st.columns([1, 1, 1])
-    
-    with col1:
-        tipo_filtro = st.selectbox("🔍 Filtrar por Tipo de Riesgo", 
-                                   ['Todos'] + sorted(df_riesgos['Tipo de Riesgo'].unique()))
-    
-    with col2:
-        area_filtro = st.selectbox("📍 Filtrar por Área", 
-                                  ['Todas'] + sorted(df_riesgos['Área'].unique()))
-    
-    with col3:
-        nivel_min = st.slider("⚠️ Nivel Mínimo de Riesgo", 1, 10, 7)
-    
-    # Aplicar filtros
-    df_filtrado = df_riesgos.copy()
-    if tipo_filtro != 'Todos':
-        df_filtrado = df_filtrado[df_filtrado['Tipo de Riesgo'] == tipo_filtro]
-    if area_filtro != 'Todas':
-        df_filtrado = df_filtrado[df_filtrado['Área'] == area_filtro]
-    df_filtrado = df_filtrado[df_filtrado['Nivel'] >= nivel_min]
-    
-   
+        st.dataframe(alertas_criticas, use_container_width=True)
+    else:
+        st.success("✅ No hay alertas críticas en este momento")
     
     # Botón de actualización
     st.markdown("---")
@@ -307,7 +287,6 @@ elif pagina == "🎯 Dashboard Interactivo":
     
     with col2:
         if st.button("🔄 Actualizar Datos", type="primary", use_container_width=True):
-            st.cache_data.clear()
             st.experimental_rerun()
             st.success("✅ Datos actualizados correctamente")
     
@@ -319,8 +298,8 @@ elif pagina == "🎯 Dashboard Interactivo":
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader(" Riesgos por Tipo")
-        tipo_counts = df_filtrado['Tipo de Riesgo'].value_counts()
+        st.subheader("📊 Riesgos por Tipo")
+        tipo_counts = riesgo_tiempo_real['Tipo de Riesgo'].value_counts()
         fig_tipo = px.pie(values=tipo_counts.values, 
                           names=tipo_counts.index,
                           title="Distribución por Tipo de Riesgo")
@@ -328,35 +307,41 @@ elif pagina == "🎯 Dashboard Interactivo":
     
     with col2:
         st.subheader("📍 Riesgos por Área")
-        area_counts = df_filtrado['Área'].value_counts()
+        area_counts = riesgo_tiempo_real['Área'].value_counts()
         fig_area = px.bar(x=area_counts.index, 
                           y=area_counts.values,
                           title="Incidencias por Área",
                           labels={'x': 'Área', 'y': 'Cantidad'})
         st.plotly_chart(fig_area, use_container_width=True)
     
-    # Resumen estadístico
-st.markdown("### 📋 Resumen Estadístico")
+    # Resumen estadístico - VERSIÓN CORREGIDA
+    st.markdown("### 📋 Resumen Estadístico")
     
-col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4 = st.columns(4)
     
-with col1:
-    total_registros = len(riesgo_tiempo_real)
-    st.metric("📊 Total Registros", total_registros)
+    with col1:
+        total_registros = len(riesgo_tiempo_real)
+        st.metric("📊 Total Registros", total_registros)
     
-with col2:
-    promedio_riesgo = riesgo_tiempo_real['Nivel'].mean()
-    st.metric("⚠️ Nivel Promedio", f"{promedio_riesgo:.1f}")
+    with col2:
+        promedio_riesgo = riesgo_tiempo_real['Nivel'].mean()
+        st.metric("⚠️ Nivel Promedio", f"{promedio_riesgo:.1f}")
     
-with col3:
-    max_riesgo = riesgo_tiempo_real['Nivel'].max()
-    st.metric("🔴 Riesgo Máximo", max_riesgo)
+    with col3:
+        max_riesgo = riesgo_tiempo_real['Nivel'].max()
+        st.metric("🔴 Riesgo Máximo", max_riesgo)
     
-with col4:
-    alertas_altas = len(riesgo_tiempo_real[riesgo_tiempo_real['Nivel'] >= 8])
-    st.metric("🚨 Alertas Altas", alertas_altas)
+    with col4:
+        alertas_altas = len(riesgo_tiempo_real[riesgo_tiempo_real['Nivel'] >= 8])
+        st.metric("🚨 Alertas Altas", alertas_altas)
 
-# Página de Conclusiones
+# Footer - FUERA DE CUALQUIER BLOQUE
+st.sidebar.markdown("---")
+st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
+st.sidebar.markdown("👤 Gloria María Araujo Chambó")
+st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
+# Ahora sí puede empezar el siguiente bloque
 elif pagina == "📝 Conclusiones":
     st.title("📝 Conclusiones y Recomendaciones")
     
@@ -415,6 +400,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("© 2025 - Semillero de Investigación IA")
 st.sidebar.markdown("👤 Gloria María Araujo Chambo")
 st.sidebar.markdown("📧 gloria.araujo@universidad.edu")
+
 
 
 
