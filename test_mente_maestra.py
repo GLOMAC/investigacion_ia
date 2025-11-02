@@ -2,7 +2,11 @@
 Tests for Mente Maestra game logic
 """
 
-import pytest
+try:
+    import pytest
+except ImportError:
+    pytest = None
+
 from mente_maestra import (
     Question, Sage, PowerUp, PlayerProfile,
     QuestionDatabase, SageDatabase, PowerUpSystem, GameSession,
@@ -254,4 +258,39 @@ class TestUtilityFunctions:
 
 
 if __name__ == "__main__":
-    pytest.main([__file__, "-v"])
+    if pytest:
+        pytest.main([__file__, "-v"])
+    else:
+        print("Running tests without pytest...")
+        
+        # Run all tests
+        test_classes = [
+            TestPlayerProfile,
+            TestQuestionDatabase,
+            TestSageDatabase,
+            TestPowerUpSystem,
+            TestGameSession,
+            TestUtilityFunctions
+        ]
+        
+        total_tests = 0
+        passed_tests = 0
+        
+        for test_class in test_classes:
+            print(f"\n=== {test_class.__name__} ===")
+            test_instance = test_class()
+            
+            # Get all test methods
+            test_methods = [m for m in dir(test_instance) if m.startswith('test_')]
+            
+            for method_name in test_methods:
+                total_tests += 1
+                try:
+                    method = getattr(test_instance, method_name)
+                    method()
+                    print(f"✓ {method_name} passed")
+                    passed_tests += 1
+                except Exception as e:
+                    print(f"✗ {method_name} failed: {e}")
+        
+        print(f"\n=== Results: {passed_tests}/{total_tests} tests passed ===")

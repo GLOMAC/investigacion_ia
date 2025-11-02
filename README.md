@@ -20,10 +20,27 @@ La app explora:
 
 ## 🚀 ¿Qué encontrarás en esta app?
 
+### Análisis de Datos
 - **Dashboard interactivo** con métricas clave
 - **Visualización de riesgos en tiempo real** usando Plotly
 - **Narrativa simbólica** que acompaña cada sección
 - **Diseño ceremonial** para guiar al usuario en su recorrido técnico
+
+### 🧠 Mente Maestra: El Torneo de los Sabios
+¡Nueva característica! Un juego de trivia interactivo donde puedes demostrar tu conocimiento:
+
+- **Duelos contra sabios legendarios** (Sócrates, Cleopatra, Leonardo da Vinci, Marie Curie, Confucio)
+- **Sistema de niveles progresivos** con 6 niveles de dificultad
+- **Fragmentos de sabiduría** como moneda del juego para desbloquear poder-ups
+- **Poder-ups especiales**:
+  - 🔮 Visión del Futuro: Revela pistas
+  - ⏮️ Eco del Pasado: Repite preguntas falladas
+  - 🛡️ Escudo del Sabio: Protege tu racha
+  - ✨ Duplicador de Fragmentos: Duplica puntos
+- **Sistema de rangos** desde Aprendiz hasta Maestro Supremo
+- **Perfil personalizable** con avatares y estadísticas
+- **Compartir en redes sociales** tu progreso y logros
+- **Nivel final épico**: El Gran Consejo para ganar la Copa de la Mente Maestra
 
 ---
 
