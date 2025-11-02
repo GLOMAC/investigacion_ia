@@ -4,7 +4,8 @@ import numpy as np
 import plotly.express as px
 from mente_maestra import (
     QuestionDatabase, SageDatabase, PowerUpSystem,
-    GameSession, PlayerProfile, get_share_text, get_rank_emoji
+    GameSession, PlayerProfile, get_share_text, get_rank_emoji,
+    get_rank_thresholds
 )
 
 
@@ -615,13 +616,13 @@ elif pagina == "🧠 Mente Maestra":
                 st.markdown(f"**Costo:** {power_up.cost} fragmentos")
                 
                 # Show how many player owns
-                power_up_id = [k for k, v in st.session_state.powerup_system.power_ups.items() if v == power_up][0]
+                power_up_id = st.session_state.powerup_system.get_power_up_id(power_up)
                 owned = player.power_ups_owned.get(power_up_id, 0)
                 if owned > 0:
                     st.markdown(f"*Tienes: {owned}*")
             
             with col3:
-                power_up_id = [k for k, v in st.session_state.powerup_system.power_ups.items() if v == power_up][0]
+                power_up_id = st.session_state.powerup_system.get_power_up_id(power_up)
                 
                 if st.button(f"Comprar", key=f"buy_{power_up_id}"):
                     if player.wisdom_fragments >= power_up.cost:
@@ -668,14 +669,7 @@ elif pagina == "🧠 Mente Maestra":
         # Progress bars for rank
         st.markdown("### Progreso al Siguiente Rango")
         
-        rank_thresholds = [
-            ("Aprendiz", 0, 30),
-            ("Estudiante", 30, 75),
-            ("Erudito", 75, 150),
-            ("Sabio", 150, 300),
-            ("Gran Sabio", 300, 500),
-            ("Maestro Supremo", 500, 1000),
-        ]
+        rank_thresholds = get_rank_thresholds()
         
         current_rank_idx = next((i for i, (name, _, _) in enumerate(rank_thresholds) if name == player.rank), 0)
         
@@ -725,29 +719,34 @@ elif pagina == "🧠 Mente Maestra":
         # Show rank system
         st.markdown("### Sistema de Rangos")
         
-        ranks_info = [
-            ("🎓 Aprendiz", "0-29 fragmentos", "El comienzo de tu viaje"),
-            ("📚 Estudiante", "30-74 fragmentos", "Avanzando en el conocimiento"),
-            ("🎭 Erudito", "75-149 fragmentos", "Dominio de múltiples áreas"),
-            ("🧙 Sabio", "150-299 fragmentos", "Sabiduría excepcional"),
-            ("🧙‍♂️ Gran Sabio", "300-499 fragmentos", "Maestría completa"),
-            ("👑 Maestro Supremo", "500+ fragmentos", "La cúspide del conocimiento"),
-        ]
+        rank_thresholds = get_rank_thresholds()
+        rank_descriptions = {
+            "Aprendiz": "El comienzo de tu viaje",
+            "Estudiante": "Avanzando en el conocimiento",
+            "Erudito": "Dominio de múltiples áreas",
+            "Sabio": "Sabiduría excepcional",
+            "Gran Sabio": "Maestría completa",
+            "Maestro Supremo": "La cúspide del conocimiento",
+        }
         
-        for rank_name, threshold, description in ranks_info:
+        for rank_name, min_frag, max_frag in rank_thresholds:
             col1, col2, col3 = st.columns([2, 2, 3])
             
+            rank_emoji = get_rank_emoji(rank_name)
+            threshold_text = f"{min_frag}-{max_frag-1} fragmentos" if max_frag < 10000 else f"{min_frag}+ fragmentos"
+            description = rank_descriptions.get(rank_name, "")
+            
             with col1:
-                st.markdown(f"**{rank_name}**")
+                st.markdown(f"**{rank_emoji} {rank_name}**")
             
             with col2:
-                st.markdown(threshold)
+                st.markdown(threshold_text)
             
             with col3:
                 st.markdown(f"*{description}*")
                 
                 # Highlight player's current rank
-                if rank_name.replace("🎓 ", "").replace("📚 ", "").replace("🎭 ", "").replace("🧙 ", "").replace("🧙‍♂️ ", "").replace("👑 ", "") == player.rank:
+                if rank_name == player.rank:
                     st.success("← Tu rango actual")
         
         st.markdown("---")

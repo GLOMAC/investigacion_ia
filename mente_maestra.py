@@ -63,18 +63,11 @@ class PlayerProfile:
     
     def update_rank(self):
         """Update player rank based on wisdom fragments."""
-        if self.wisdom_fragments >= 500:
-            self.rank = "Maestro Supremo"
-        elif self.wisdom_fragments >= 300:
-            self.rank = "Gran Sabio"
-        elif self.wisdom_fragments >= 150:
-            self.rank = "Sabio"
-        elif self.wisdom_fragments >= 75:
-            self.rank = "Erudito"
-        elif self.wisdom_fragments >= 30:
-            self.rank = "Estudiante"
-        else:
-            self.rank = "Aprendiz"
+        rank_thresholds = get_rank_thresholds()
+        for rank_name, min_fragments, _ in reversed(rank_thresholds):
+            if self.wisdom_fragments >= min_fragments:
+                self.rank = rank_name
+                break
 
 
 class QuestionDatabase:
@@ -344,6 +337,13 @@ class PowerUpSystem:
     def get_all_power_ups(self) -> List[PowerUp]:
         """Get all available power-ups."""
         return list(self.power_ups.values())
+    
+    def get_power_up_id(self, power_up: PowerUp) -> Optional[str]:
+        """Get the ID of a power-up."""
+        for power_up_id, pu in self.power_ups.items():
+            if pu == power_up:
+                return power_up_id
+        return None
 
 
 class GameSession:
@@ -417,7 +417,8 @@ class GameSession:
         if self.current_question_index >= len(self.questions):
             self.completed = True
             self.player.wisdom_fragments += self.score
-            if is_correct and self.level not in self.player.completed_levels:
+            # Level is completed regardless of last answer, mark as complete
+            if self.level not in self.player.completed_levels:
                 self.player.completed_levels.append(self.level)
                 self.player.current_level = max(self.player.current_level, self.level + 1)
             self.player.update_rank()
@@ -449,6 +450,22 @@ class GameSession:
         return None
 
 
+def get_rank_thresholds() -> List[tuple]:
+    """Get centralized rank thresholds.
+    
+    Returns:
+        List of tuples (rank_name, min_fragments, max_fragments)
+    """
+    return [
+        ("Aprendiz", 0, 30),
+        ("Estudiante", 30, 75),
+        ("Erudito", 75, 150),
+        ("Sabio", 150, 300),
+        ("Gran Sabio", 300, 500),
+        ("Maestro Supremo", 500, 10000),
+    ]
+
+
 def get_share_text(player: PlayerProfile) -> str:
     """Generate text for social media sharing."""
     return f"""🧠 Mente Maestra: El Torneo de los Sabios 🧠
@@ -460,7 +477,7 @@ def get_share_text(player: PlayerProfile) -> str:
 📊 Nivel Actual: {player.current_level}
 
 ¡Únete al torneo y demuestra tu sabiduría!
-#MenteMaestra #TorneoDeLos Sabios"""
+#MenteMaestra #TorneoDeLosSabios"""
 
 
 def get_rank_emoji(rank: str) -> str:
